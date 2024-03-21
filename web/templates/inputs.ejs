@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<body>
+    <h1>Data</h1>
+    <%= reason_name %>: <%= target_1 %> vs <%= target_2 %>
+    <ul>
+        <% for (let i = 0; i < inputs.length; i++) { %>
+            <li>
+                <a href="/outputs/<%= inputs[i].id %>/<%= target_1_id %>/<%= target_2_id %>">
+                    <%= inputs[i].filename %>
+                </a>
+
+                <a href="/outputs/<%= inputs[i].id %>">
+                    (Show all)
+                </a>
+            </li>
+        <% } %>
+    </ul>
+</body>
+</html>

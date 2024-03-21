@@ -1,0 +1,1 @@
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address -fsanitize-coverage=inline-8bit-counters,pc-table -fsanitize-recover=address -fno-omit-frame-pointer")

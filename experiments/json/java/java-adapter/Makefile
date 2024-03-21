@@ -1,0 +1,10 @@
+JAVA_HOME := /usr/lib/jvm/java-17-openjdk-amd64
+JAVAC := $(JAVA_HOME)/bin/javac
+
+.PHONY: clean
+
+target/java-adapter-1.0.jar: src/main/java/com/adapter/*.java src/test/java/com/adapter/*.java
+	mvn package
+
+clean: 
+	mvn clean

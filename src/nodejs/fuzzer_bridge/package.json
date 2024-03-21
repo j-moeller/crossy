@@ -1,0 +1,21 @@
+{
+  "name": "fuzzer_bridge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/fuzzer_bridge.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node-gyp configure && node-gyp build && tsc && (cd dist && (ln -s ../build || true) && cd -)"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "gypfile": true,
+  "devDependencies": {
+    "@types/node": "^18.8.4",
+    "typescript": "^4.8.4"
+  }
+}

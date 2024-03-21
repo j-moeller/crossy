@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<body>
+    <h1><%= header %></h1>
+    <table>
+        <tr>
+            <th></th>
+            <% for (let i = 0; i < n_targets; i++) { %>
+                <th><%= target_list[i] %></th>
+            <% } %>
+        </tr>
+        <% for (let i = 0; i < n_targets; i++) { %>
+            <tr>
+                <th><%= target_list[i] %></th>
+                <% for (let j = 0; j < n_targets; j++) { %>
+                    <% if (reason_name_id === undefined) { %>
+                        <% if (M[i][j] === 0) { %>
+                            <td style="background: green;" data-value="<%= M[i][j] %>" data-id-row="<%= id_list[i] %>" data-id-col="<%= id_list[j] %>">
+                        <% } else { %>
+                            <td style="background: red;" data-value="<%= M[i][j] %>" data-id-row="<%= id_list[i] %>" data-id-col="<%= id_list[j] %>">
+                        <% } %>
+                        <%= M[i][j] %>
+                        </td>
+                    <% } else { %>
+                        <% if (M[i][j] === 0) { %>
+                            <td style="background: green;" data-value="<%= M[i][j] %>" data-id-row="<%= id_list[i] %>" data-id-col="<%= id_list[j] %>">
+                                <%= M[i][j] %>
+                            <% } else { %>
+                                <td style="background: red;" data-value="<%= M[i][j] %>" data-id-row="<%= id_list[i] %>" data-id-col="<%= id_list[j] %>">
+                                <a href="/inputs/<%= id_list[i] %>/<%= id_list[j] %>/<%= reason_name_id %>"><%= M[i][j] %></a>
+                            <% } %>
+                        </td>
+                    <% } %>
+                <% } %>
+            </tr>
+        <% } %>
+    </table>
+</body>
+</html>

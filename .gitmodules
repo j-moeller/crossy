@@ -1,0 +1,73 @@
+[submodule "experiments/json/shared-objects/libs/cJSON"]
+	path = experiments/json/shared-objects/libs/cJSON
+	url = https://github.com/j-moeller/cJSON.git
+	branch = crossy
+[submodule "experiments/json/shared-objects/libs/frozen"]
+	path = experiments/json/shared-objects/libs/frozen
+	url = https://github.com/j-moeller/frozen.git
+	branch = crossy
+[submodule "experiments/json/shared-objects/libs/json-c"]
+	path = experiments/json/shared-objects/libs/json-c
+	url = https://github.com/j-moeller/json-c
+	branch = crossy
+[submodule "experiments/json/shared-objects/libs/v8/v8"]
+	path = experiments/json/shared-objects/libs/v8/v8
+	url = https://github.com/j-moeller/v8.git
+	branch = crossy
+[submodule "experiments/json/shared-objects/libs/spidermonkey"]
+	path = experiments/json/shared-objects/libs/spidermonkey
+	url = https://github.com/j-moeller/gecko-dev/
+	branch = crossy
+
+[submodule "ext/llvm-project"]
+	path = ext/llvm-project
+	url = https://github.com/j-moeller/llvm-project.git
+	branch = crossy
+
+[submodule "src/java/paco-agent/jacoco"]
+	path = src/java/paco-agent/jacoco
+	url = https://github.com/j-moeller/jacoco.git
+	branch = crossy
+
+[submodule "experiments/json/shared-objects/libs/libjson"]
+	path = experiments/json/shared-objects/libs/libjson
+	url = https://github.com/vincenthz/libjson
+[submodule "experiments/json/shared-objects/libs/jansson"]
+	path = experiments/json/shared-objects/libs/jansson
+	url = https://github.com/akheron/jansson
+[submodule "experiments/json/shared-objects/libs/ccan"]
+	path = experiments/json/shared-objects/libs/ccan
+	url = https://github.com/rustyrussell/ccan/
+[submodule "experiments/json/shared-objects/libs/tiny-json"]
+	path = experiments/json/shared-objects/libs/tiny-json
+	url = https://github.com/rafagafe/tiny-json
+[submodule "experiments/json/shared-objects/libs/rapidjson"]
+	path = experiments/json/shared-objects/libs/rapidjson
+	url = https://github.com/Tencent/rapidjson
+[submodule "experiments/json/shared-objects/libs/json.h"]
+	path = experiments/json/shared-objects/libs/json.h
+	url = https://github.com/sheredom/json.h
+[submodule "experiments/json/shared-objects/libs/json"]
+	path = experiments/json/shared-objects/libs/json
+	url = https://github.com/nlohmann/json
+[submodule "experiments/json/shared-objects/libs/jsmn"]
+	path = experiments/json/shared-objects/libs/jsmn
+	url = https://github.com/zserge/jsmn
+[submodule "experiments/json/shared-objects/libs/json-parser"]
+	path = experiments/json/shared-objects/libs/json-parser
+	url = https://github.com/json-parser/json-parser
+[submodule "experiments/json/shared-objects/libs/yajl"]
+	path = experiments/json/shared-objects/libs/yajl
+	url = https://github.com/lloyd/yajl
+[submodule "experiments/json/shared-objects/libs/poco"]
+	path = experiments/json/shared-objects/libs/poco
+	url = https://github.com/pocoproject/poco
+[submodule "experiments/json/shared-objects/libs/json-builder"]
+	path = experiments/json/shared-objects/libs/json-builder
+	url = https://github.com/json-parser/json-builder
+[submodule "experiments/json/shared-objects/libs/jsoncpp"]
+	path = experiments/json/shared-objects/libs/jsoncpp
+	url = https://github.com/open-source-parsers/jsoncpp
+[submodule "experiments/json/shared-objects/libs/boost"]
+	path = experiments/json/shared-objects/libs/boost
+	url = https://github.com/boostorg/boost

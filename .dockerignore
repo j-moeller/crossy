@@ -1,0 +1,10 @@
+.git
+.vscode
+build
+configs
+corpus
+experiments
+ext
+output
+scripts
+src

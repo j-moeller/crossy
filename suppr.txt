@@ -1,0 +1,2 @@
+# ignore perceived leaks from the jvm garbage collector
+leak:jvm

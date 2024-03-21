@@ -1,0 +1,47 @@
+diff --git a/js/src/moz.build b/js/src/moz.build
+index 1b4743f05304..86a34152c2c8 100644
+--- a/js/src/moz.build
++++ b/js/src/moz.build
+@@ -76,9 +76,15 @@ if CONFIG["FUZZING_INTERFACES"] and CONFIG["LIBFUZZER"]:
+     # be built with the necessary instrumentation flags, rather than just building
+     # the whole JS engine with instrumentation, to reduce the amount of noise.
+     SOURCES += [
+-        "vm/StructuredClone.cpp",
++        # "vm/StructuredClone.cpp",
++        "builtin/JSON.cpp",
++        "vm/JSONParser.cpp",
++        "vm/JSONPrinter.cpp",
+     ]
+-    SOURCES["vm/StructuredClone.cpp"].flags += libfuzzer_flags
++    SOURCES["builtin/JSON.cpp"].flags += libfuzzer_flags
++    SOURCES["vm/JSONParser.cpp"].flags += libfuzzer_flags
++    SOURCES["vm/JSONPrinter.cpp"].flags += libfuzzer_flags
++    # SOURCES["vm/StructuredClone.cpp"].flags += libfuzzer_flags
+ else:
+     UNIFIED_SOURCES += [
+         "vm/StructuredClone.cpp",
+@@ -304,7 +310,6 @@ UNIFIED_SOURCES += [
+     "builtin/DataViewObject.cpp",
+     "builtin/Eval.cpp",
+     "builtin/FinalizationRegistryObject.cpp",
+-    "builtin/JSON.cpp",
+     "builtin/MapObject.cpp",
+     "builtin/ModuleObject.cpp",
+     "builtin/Object.cpp",
+@@ -384,8 +389,6 @@ UNIFIED_SOURCES += [
+     "vm/JSContext.cpp",
+     "vm/JSFunction.cpp",
+     "vm/JSObject.cpp",
+-    "vm/JSONParser.cpp",
+-    "vm/JSONPrinter.cpp",
+     "vm/JSScript.cpp",
+     "vm/List.cpp",
+     "vm/MemoryMetrics.cpp",
+@@ -420,6 +423,7 @@ UNIFIED_SOURCES += [
+     "vm/StencilCache.cpp",
+     "vm/StencilObject.cpp",
+     "vm/StringType.cpp",
++    "vm/StructuredClone.cpp",
+     "vm/SymbolType.cpp",
+     "vm/TaggedProto.cpp",
+     "vm/ThrowMsgKind.cpp",
