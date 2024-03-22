@@ -59,8 +59,10 @@ ENV PATH="/root/depot_tools:$PATH"
 
 ## install rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain stable -y
-RUN $HOME/.cargo/bin/rustup install 1.70.0
-RUN $HOME/.cargo/bin/rustup default 1.70.0
+#RUN $HOME/.cargo/bin/rustup install 1.70.0
+#RUN $HOME/.cargo/bin/rustup default 1.70.0
+RUN $HOME/.cargo/bin/rustup install nightly
+RUN $HOME/.cargo/bin/rustup default nightly
 RUN echo 'source $HOME/.cargo/env' >> $HOME/.bashrc
 
 RUN pip install -U --no-cache-dir orjson simplejson numpy posix-ipc

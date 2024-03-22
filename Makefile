@@ -55,4 +55,4 @@ java_libs:
 	cd experiments/json/java/java-adapter && make
 
 docker:
-	sh scripts/dev/start_or_attach_container.sh
+	./scripts/dev/start_or_attach_container.sh

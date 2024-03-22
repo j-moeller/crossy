@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 print_usage() {
     echo "Usage: $0 [--command <command>]"
@@ -30,7 +29,7 @@ else
 fi
 
 start_container() {
-    CONTAINER_HASH=$(sh scripts/dev/start_dev_container.sh)
+    CONTAINER_HASH=$(./scripts/dev/start_dev_container.sh)
     echo ${CONTAINER_HASH} > ${DOCKER_CONTAINER_FILE}
 }
 
@@ -46,5 +45,5 @@ else
     start_container
 fi
 
-docker exec -it ${CONTAINER_HASH} sh -c "${command_flag}"
+docker exec -it ${CONTAINER_HASH} /bin/bash -c "${command_flag}"
 exit 0

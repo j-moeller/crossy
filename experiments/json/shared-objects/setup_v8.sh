@@ -26,10 +26,6 @@ exit 0
 mkdir -p paco
 cd paco
 
-ln -s ../../../../src/adapter/v8_adapter.cpp
-ln -s ../../../../../../../src/interface/common.h
-ln -s ../../../../../../../src/interface/generic_target.cpp
-
 cd ..
 
 # libs/v8/v8

@@ -63,4 +63,33 @@ all: build
 include $(LIB_DIR)/Makefile
 include $(SRC_DIR)/Makefile
 
-build: $(SHARED_LIBS)
+$(BUILD_SPIDERMONKEY_DIR)/js/src/build/libmozjs-114a1.so:
+	cd $(LIB_DIR)/spidermonkey && MOZCONFIG=/app/experiments/json/shared-objects/MOZCONFIG_RELEASE ./mach build
+
+$(LIB_DIR)/v8/v8/out/paco_component/v8_allowlist.txt:
+	cd $(LIB_DIR)/v8/v8 && gn gen out/paco_component --args='is_asan=true is_debug=false sanitizer_coverage_flags="inline-8bit-counters,pc-table" sanitizer_coverage_allowlist_flags="v8_allowlist.txt" target_cpu="x64" is_component_build=true v8_use_external_startup_data=false'
+	$(LIB_DIR)/v8/v8/build && git apply ../../../../v8-build.patch
+	cp v8_allowlist.txt $(LIB_DIR)/v8/v8/out/paco_component/v8_allowlist.txt
+
+$(LIB_DIR)/v8/v8/paco/v8_adapter.cpp: src/adapter/v8_adapter.cpp
+	mkdir -p $(dir $@)
+	cp src/adapter/v8_adapter.cpp $@
+
+$(LIB_DIR)/v8/v8/paco/generic_target.cpp: ../../../src/interface/generic_target.cpp
+	mkdir -p $(dir $@)
+	cp ../../../src/interface/generic_target.cpp $@
+
+$(LIB_DIR)/v8/v8/paco/common.h: ../../../src/interface/common.h
+	mkdir -p $(dir $@)
+	cp ../../../src/interface/common.h $@
+
+thisdoesnotexist: $(LIB_DIR)/v8/v8/out/paco_component/v8_allowlist.txt $(LIB_DIR)/v8/v8/paco/v8_adapter.cpp $(LIB_DIR)/v8/v8/paco/generic_target.cpp $(LIB_DIR)/v8/v8/paco/common.h
+	cd $(LIB_DIR)/v8/v8 && ninja -C out/paco_component paco
+
+
+prebuild: $(BUILD_SPIDERMONKEY_DIR)/js/src/build/libmozjs-114a1.so thisdoesnotexist
+
+build: prebuild 
+	make shared_libs_build
+
+shared_libs_build: $(SHARED_LIBS)

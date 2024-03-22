@@ -120,7 +120,7 @@ LIB_JSONC_LDFLAGS := -L$(ABSOLUTE_LIB_DIR)/json-c/build
 LIB_JSONC_CFLAGS := -I$(ABSOLUTE_LIB_DIR)/json-c -I$(ABSOLUTE_LIB_DIR)/json-c/build
 
 $(LIBJSONC): 
-	mkdir -p $(dir $@)/build
-	cd build && \
-		cmake -DBUILD_TESTING=OFF -DCMAKE_C_COMPILER=clang-14 -DBUILD_STATIC_LIBS=OFF .. \
+	mkdir -p $(dir $@)
+	cd $(dir $@) && \
+		cmake -DBUILD_TESTING=OFF -DCMAKE_C_COMPILER=clang-14 -DBUILD_STATIC_LIBS=OFF .. && \
 		make
