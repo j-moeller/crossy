@@ -64,7 +64,9 @@ include $(LIB_DIR)/Makefile
 include $(SRC_DIR)/Makefile
 
 $(BUILD_SPIDERMONKEY_DIR)/js/src/build/libmozjs-114a1.so:
+	rustup default 1.70.0
 	cd $(LIB_DIR)/spidermonkey && MOZCONFIG=/app/experiments/json/shared-objects/MOZCONFIG_RELEASE ./mach build
+	rustup default nightly
 
 $(LIB_DIR)/v8/v8/out/paco_component/v8_allowlist.txt:
 	cd $(LIB_DIR)/v8/v8 && gn gen out/paco_component --args='is_asan=true is_debug=false sanitizer_coverage_flags="inline-8bit-counters,pc-table" sanitizer_coverage_allowlist_flags="v8_allowlist.txt" target_cpu="x64" is_component_build=true v8_use_external_startup_data=false'
