@@ -19,15 +19,6 @@ RUN ln -s /usr/bin/clang-14 /usr/bin/clang
 ENV JAVA_HOME /usr/lib/jvm/java-17-openjdk-amd64/
 RUN export JAVA_HOME
 
-## Compile node
-# WORKDIR /deps
-#RUN git clone https://github.com/nodejs/node
-
-#WORKDIR /deps/node
-#RUN git checkout v19.0.0
-#RUN ./configure --ninja
-#RUN make -j8
-
 # Firefox dependencies
 RUN apt-get install -y bash findutils gzip libxml2 m4 make perl tar unzip watchman
 

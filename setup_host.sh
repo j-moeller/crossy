@@ -22,6 +22,8 @@ mkdir -p experiments/json/java/.m2/
 docker run --rm -it \
     --env JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64" \
     -v $(pwd)/experiments:/app/experiments \
+    -v $(pwd)/experiments/json/shared-objects/libs/spidermonkey:/app/experiments/json/shared-objects/libs/spidermonkey:ro \
+    -v $(pwd)/experiments/json/shared-objects/libs/spidermonkey:/app/spidermonkey_readonly:ro \
     -v $(pwd)/ext/llvm-project:/app/ext/llvm-project:ro \
     -v $(pwd)/scripts:/app/scripts:ro \
     -v $(pwd)/src:/app/src:ro \
