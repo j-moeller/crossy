@@ -66,7 +66,7 @@ $(BUILD_SPIDERMONKEY_DIR)/js/src/build/libmozjs-114a1.so:
 
 /build/v8/v8/out/paco_component/v8_allowlist.txt:
 	cd /build/v8/v8 && gn gen out/paco_component --args='is_asan=true is_debug=false sanitizer_coverage_flags="inline-8bit-counters,pc-table" sanitizer_coverage_allowlist_flags="v8_allowlist.txt" target_cpu="x64" is_component_build=true v8_use_external_startup_data=false'
-	/build/v8/v8/build && git apply ../../../../v8-build.patch
+	cd /build/v8/v8/build && git apply ../../../../v8-build.patch
 	cp v8_allowlist.txt /build/v8/v8/out/paco_component/v8_allowlist.txt
 
 /build/v8/v8/paco/v8_adapter.cpp: src/adapter/v8_adapter.cpp
