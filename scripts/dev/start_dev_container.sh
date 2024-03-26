@@ -22,6 +22,7 @@ docker run -d -it \
     -v $(pwd)/experiments/json/shared-objects/build:/app/experiments/json/shared-objects/build \
     -v $(pwd)/experiments/json/shared-objects/libs:/app/experiments/json/shared-objects/libs \
     -v $(pwd)/experiments/json/shared-objects/libs/spidermonkey:/build/spidermonkey \
+    -v $(pwd)/experiments/json/shared-objects/libs/v8:/build/v8 \
     \
     -v $(pwd)/src/java:/app/src/java \
     -v $(pwd)/build:/app/build \
