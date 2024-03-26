@@ -2,8 +2,9 @@
 set -e
 
 export MOZCONFIG=/app/experiments/json/shared-objects/MOZCONFIG_RELEASE
-# cd /build/spidermonkey_readonly
-# ./mach build
 
+rustup default 1.70.0
 cd /build/spidermonkey
 ./mach build
+
+rustup default nightly

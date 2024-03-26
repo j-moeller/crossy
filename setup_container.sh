@@ -10,8 +10,9 @@ fi
 
 echo "[Container]: Setting up dependencies"
 cd experiments/json/java && ./setup.sh && cd -
-# cd experiments/json/shared-objects && ./build_spidermonkey.sh
-# cd experiments/json/shared-objects && ./setup_v8.sh
+
+echo "[Container]: Setting up v8"
+cd experiments/json/shared-objects && ./setup_v8.sh
 
 echo "[Container]: Build project"
 make build

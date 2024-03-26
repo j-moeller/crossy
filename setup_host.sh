@@ -16,15 +16,19 @@ docker build -t mlsec-crossy .
 
 
 echo "[Host] Starting initial container"
-mkdir -p build
-mkdir -p experiments/json/shared-objects/build
-mkdir -p experiments/json/java/.m2/
+mkdir -p ./build/
+
+mkdir -p ./experiments/json/shared-objects/build
+mkdir -p ./experiments/json/java/.m2/
+
+mkdir -p /build/v8
+
 docker run --rm -it \
     --env JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64" \
     -v $(pwd)/experiments:/app/experiments \
     -v $(pwd)/experiments/json/shared-objects/libs/spidermonkey:/app/experiments/json/shared-objects/libs/spidermonkey:ro \
-    -v $(pwd)/experiments/json/shared-objects/libs/spidermonkey:/build/spidermonkey_readonly:ro \
     -v $(pwd)/experiments/json/shared-objects/libs/spidermonkey:/build/spidermonkey \
+    -v $(pwd)/experiments/json/shared-objects/libs/v8:/build/v8 \
     -v $(pwd)/ext/llvm-project:/app/ext/llvm-project:ro \
     -v $(pwd)/scripts:/app/scripts:ro \
     -v $(pwd)/src:/app/src:ro \
