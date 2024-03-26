@@ -21,7 +21,7 @@ mkdir -p ./build/
 mkdir -p ./experiments/json/shared-objects/build
 mkdir -p ./experiments/json/java/.m2/
 
-mkdir -p /build/v8
+mkdir -p ./experiments/json/shared-objects/libs/v8
 
 docker run --rm -it \
     --env JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64" \
