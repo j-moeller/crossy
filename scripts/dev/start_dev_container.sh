@@ -26,6 +26,7 @@ docker run -d -it \
     \
     -v $(pwd)/src/java:/app/src/java \
     -v $(pwd)/build:/app/build \
+    -v $(pwd)/findings:/app/findings \
     -v $(pwd)/output:/app/output \
     -v $(pwd)/tests:/app/tests:ro \
     -v $(pwd)/experiments/json/shared-objects/rust:/app/experiments/json/shared-objects/rust \

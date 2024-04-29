@@ -13,10 +13,10 @@ ABSOLUTE_LIB_DIR := $(shell pwd)/libs
 # SPIDERMONKEY_DEBUG := 1
 
 ifdef SPIDERMONKEY_DEBUG
-BUILD_SPIDERMONKEY_DIR := /build/spidermonkey/debug
+BUILD_SPIDERMONKEY_DIR := build/libs/spidermonkey/debug
 SPIDERMONKEY_DEBUG_FLAG := -DDEBUG
 else
-BUILD_SPIDERMONKEY_DIR := /build/spidermonkey/release
+BUILD_SPIDERMONKEY_DIR := build/libs/spidermonkey/release
 endif
 
 #
@@ -58,6 +58,8 @@ ALL_LIBS = \
 	jansson \
 	spidermonkey \
 
+all: shared_libs_build
+
 include $(LIB_DIR)/Makefile
 include $(SRC_DIR)/Makefile
 
@@ -66,7 +68,7 @@ $(BUILD_SPIDERMONKEY_DIR)/js/src/build/libmozjs-114a1.so:
 
 /build/v8/v8/out/paco_component/v8_allowlist.txt:
 	cd /build/v8/v8 && gn gen out/paco_component --args='is_asan=true is_debug=false sanitizer_coverage_flags="inline-8bit-counters,pc-table" sanitizer_coverage_allowlist_flags="v8_allowlist.txt" target_cpu="x64" is_component_build=true v8_use_external_startup_data=false'
-	cd /build/v8/v8/build && git apply /app/experiments/json/shared-objects/v8-build.patch
+# cd /build/v8/v8/build && git apply /app/experiments/json/shared-objects/v8-build.patch
 	cp v8_allowlist.txt /build/v8/v8/out/paco_component/v8_allowlist.txt
 
 /build/v8/v8/paco/v8_adapter.cpp: src/adapter/v8_adapter.cpp
