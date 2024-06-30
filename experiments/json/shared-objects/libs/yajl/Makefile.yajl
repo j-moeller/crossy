@@ -1,0 +1,19 @@
+all: build/yajl.so
+
+build/generic_target.o: generic_target.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CFLAGS) $(CFLAGS_SHARED_O) $(CXX_FLAGS) $(COV_FULL_FLAGS) -DHANDLE_EXCEPTIONS -c -o $@ $^
+
+build/yajl_adapter.o: yajl_adapter.c build/yajl/yajl-2.1.1/lib/libyajl_s.a
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(CFLAGS_SHARED_O) $(COV_FULL_FLAGS) -I build/yajl/yajl-2.1.1/include -c $< -o $@
+
+build/yajl/yajl-2.1.1/lib/libyajl_s.a:
+	@mkdir -p $(dir $@)
+	grep -qxF 'add_compile_options(${COV_FULL_FLAGS})' yajl/CMakeLists.txt || sed -i '18s/^/add_compile_options(${COV_FULL_FLAGS})\nlink_libraries(-fsanitize=address)\n/' yajl/CMakeLists.txt
+	cd build/yajl && cmake -DCMAKE_CXX_COMPILER=clang++-14 -DCMAKE_C_COMPILER=clang-14 -DCMAKE_POSITION_INDEPENDENT_CODE=ON ../../yajl
+	cd build/yajl && make -j$(nproc --all)
+
+build/yajl.so: build/generic_target.o build/yajl_adapter.o build/yajl/yajl-2.1.1/lib/libyajl_s.a
+	@mkdir -p $(dir $@)
+	$(CXX) $(CFLAGS) $(CFLAGS_SHARED_LIB) $(COV_FULL_FLAGS) -o $@ $^

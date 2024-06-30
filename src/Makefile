@@ -57,4 +57,4 @@ $(BUILD_DIR)/poc: $(BUILD_DIR)/process.o $(BUILD_DIR)/main.o $(BUILD_DIR)/covera
 
 clean-src:
 	rm -f $(BUILD_DIR)/*.o
-	rm -f $(BUILD_DIR)/poc $(BUILD_DIR)/minimizer $(JAVA_BUILD_DIR)/jvm_launcher
+	rm -f $(BUILD_DIR)/poc $(JAVA_BUILD_DIR)/jvm_launcher

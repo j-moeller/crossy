@@ -1,1 +1,0 @@
-find findings/ -type f -name *test.sh -exec /bin/bash {} \;

@@ -14,7 +14,6 @@ find /tmp/json_test_data -size -5k -name "*.json" -exec cp "{}" "corpus/" \;
 echo "[Host] Building docker container"
 docker build -t mlsec-crossy .
 
-
 echo "[Host] Starting initial container"
 mkdir -p ./build/
 

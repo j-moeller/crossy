@@ -1,0 +1,19 @@
+all: build/jansson.so
+
+build/generic_target.o: generic_target.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CFLAGS) $(CFLAGS_SHARED_O) $(CXX_FLAGS) $(COV_FULL_FLAGS) -DHANDLE_EXCEPTIONS -c -o $@ $^
+
+build/jansson_adapter.o: jansson_adapter.c build/jansson/lib/libjansson.a
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(CFLAGS_SHARED_O) $(COV_FULL_FLAGS) -Ibuild/jansson/include -c $< -o $@
+
+build/jansson/lib/libjansson.a:
+	@mkdir -p $(dir $@)
+	grep -qxF 'SET(CMAKE_C_FLAGS "$${CMAKE_C_FLAGS} ${COV_FULL_FLAGS}")' jansson/CMakeLists.txt || echo 'SET(CMAKE_C_FLAGS "$${CMAKE_C_FLAGS} ${COV_FULL_FLAGS}")' >> jansson/CMakeLists.txt
+	cd build/jansson && cmake -DBUILD_SHARED_LIBS=ON -DJANSSON_BUILD_DOCS=OFF -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=clang-14 -DCMAKE_CXX_COMPILER=clang++-14 ../../jansson
+	cd build/jansson && make -j$(nproc --all)
+
+build/jansson.so: build/generic_target.o build/jansson_adapter.o build/jansson/lib/libjansson.a
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(CFLAGS_SHARED_LIB) $(COV_FULL_FLAGS) -o $@ $^

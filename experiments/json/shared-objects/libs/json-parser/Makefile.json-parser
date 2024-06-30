@@ -1,0 +1,21 @@
+all: build/json-parser.so
+
+build/generic_target.o: generic_target.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CFLAGS) $(CFLAGS_SHARED_O) $(CXX_FLAGS) $(COV_FULL_FLAGS) -DHANDLE_EXCEPTIONS -c -o $@ $^
+
+build/json-parser.o: json-parser/json.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS_LIBS) $(COV_FULL_FLAGS) -c $< -o $@
+
+build/json-builder.o: json-builder/json-builder.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS_LIBS) $(COV_FULL_FLAGS) -Ijson-parser -c $< -o $@
+
+build/json-parser_adapter.o: json-parser_adapter.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(CFLAGS_SHARED_O) $(COV_FULL_FLAGS) -Ijson-parser -Ijson-builder -c $< -o $@
+
+build/json-parser.so: build/generic_target.o build/json-parser_adapter.o build/json-parser.o build/json-builder.o
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(CFLAGS_SHARED_LIB) $(COV_FULL_FLAGS) -o $@ $^

@@ -1,0 +1,25 @@
+all: build/poco.so
+
+build/generic_target.o: generic_target.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CFLAGS) $(CFLAGS_SHARED_O) $(CXX_FLAGS) $(COV_FULL_FLAGS) -DHANDLE_EXCEPTIONS -c -o $@ $^
+
+build/poco_adapter.o: poco_adapter.cpp build/poco/lib/libPocoJSON.a
+	@mkdir -p $(dir $@)
+	$(CXX) $(CFLAGS_NO_WERROR) $(CFLAGS_SHARED_O) $(CXX_FLAGS) $(COV_FULL_FLAGS) -Ipoco/Foundation/include -Ipoco/JSON/include -c $< -o $@
+
+build/poco/lib/libPocoJSON.a:
+	@mkdir -p $(dir $@)
+	grep -qxF 'add_compile_options(${COV_FULL_FLAGS})' poco/JSON/CMakeLists.txt || sed -i '1s/^/add_compile_options(${COV_FULL_FLAGS})\nlink_libraries(-fsanitize=address)\n/' poco/JSON/CMakeLists.txt
+	cd build/poco && cmake -DENABLE_ENCODINGS=OFF -DENABLE_XML=OFF -DENABLE_MONGODB=OFF \
+		-DENABLE_DATA_SQLITE=OFF -DENABLE_REDIS=OFF -DENABLE_PROMETHEUS=OFF -DENABLE_UTIL=OFF -DENABLE_NET=OFF \
+		-DENABLE_ZIP=OFF -DENABLE_PAGECOMPILER=OFF -DENABLE_PAGECOMPILER_FILE2PAGE=OFF \
+		-DENABLE_ACTIVERECORD=OFF -DENABLE_ACTIVERECORD_COMPILER=OFF -DENABLE_NETSSL=OFF \
+		-DENABLE_CRYPTO=OFF -DENABLE_JWT=OFF -DENABLE_ACTIVERECORD=OFF -DENABLE_ACTIVERECORD_COMPILER=OFF \
+		-DCMAKE_CXX_COMPILER=clang++-14 -DCMAKE_C_COMPILER=clang-14 -DBUILD_SHARED_LIBS=OFF \
+		-DCMAKE_POSITION_INDEPENDENT_CODE=ON ../../poco
+	cd build/poco && make -j$(nproc --all)
+
+build/poco.so: build/generic_target.o build/poco_adapter.o build/poco/lib/libPocoJSON.a
+	@mkdir -p $(dir $@)
+	$(CXX) $(CFLAGS) $(CFLAGS_SHARED_LIB) $(COV_FULL_FLAGS) -o $@ $^

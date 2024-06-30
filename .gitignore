@@ -6,7 +6,6 @@ doc/
 output/
 
 experiments/json/java/.m2/
-experiments/json/shared-objects/libs/v8
 .dockercontainer
 
 #
