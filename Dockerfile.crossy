@@ -1,0 +1,20 @@
+FROM debian:bookworm
+
+ENV IN_DOCKER_CONTAINER=1
+
+RUN apt-get update -y
+RUN apt-get install -y  make clang-14 clang++-14 build-essential default-jdk \
+                        maven coreutils
+
+ENV JAVA_HOME /usr/lib/jvm/java-17-openjdk-amd64/
+RUN export JAVA_HOME
+
+RUN ln -s /usr/bin/clang++-14 /usr/bin/clang++
+RUN ln -s /usr/bin/clang-14 /usr/bin/clang
+
+WORKDIR /app
+
+COPY ext/llvm-project/compiler-rt/lib/fuzzer libfuzzer
+COPY src src
+
+COPY Makefile.crossy Makefile

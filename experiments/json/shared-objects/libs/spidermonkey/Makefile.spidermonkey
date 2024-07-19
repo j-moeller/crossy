@@ -1,0 +1,16 @@
+all: build/spidermonkey.so
+
+build/spidermonkey/js/src/build/libmozjs-114a1.so:
+	cd gecko-dev && MOZCONFIG=/app/MOZCONFIG_RELEASE ./mach build
+
+build/generic_target.o: generic_target.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(ENV_CFLAGS) $(ENV_CFLAGS_SHARED_O) $(ENV_CXX_FLAGS) $(ENV_COV_FULL_FLAGS) -DHANDLE_EXCEPTIONS -c -o $@ $^
+
+build/spidermonkey_adapter.o: spidermonkey_adapter.cpp build/spidermonkey/js/src/build/libmozjs-114a1.so
+	@mkdir -p $(dir $@)
+	$(CXX) $(ENV_CFLAGS_NO_WERROR) $(ENV_CFLAGS_SHARED_O) $(ENV_CXX_17_FLAGS) $(ENV_COV_FULL_FLAGS) -Ibuild/spidermonkey/dist/include/ -Ispidermonkey/js/src -c $< -o $@
+
+build/spidermonkey.so: build/generic_target.o build/spidermonkey_adapter.o build/spidermonkey/js/src/build/libmozjs-114a1.so
+	@mkdir -p $(dir $@)
+	$(CXX) $(ENV_CFLAGS) $(ENV_CFLAGS_SHARED_LIB) $(ENV_COV_FULL_FLAGS) build/generic_target.o build/spidermonkey_adapter.o -Wl,-rpath=/app/experiments/json/shared-objects/build/spidermonkey/spidermonkey/js/src/build/ -Lbuild/spidermonkey/js/src/build/ -lmozjs-114a1 -o $@

@@ -1,0 +1,19 @@
+all: build/jsoncpp.so
+
+build/generic_target.o: generic_target.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CFLAGS) $(CFLAGS_SHARED_O) $(CXX_FLAGS) $(COV_FULL_FLAGS) -DHANDLE_EXCEPTIONS -c -o $@ $^
+
+build/jsoncpp_adapter.o: jsoncpp_adapter.cpp build/jsoncpp/lib/libjsoncpp.a
+	@mkdir -p $(dir $@)
+	$(CXX) $(CFLAGS) $(CFLAGS_SHARED_O) $(CXX_FLAGS) $(COV_FULL_FLAGS) -Iboost -c $< -o $@
+
+build/jsoncpp/lib/libjsoncpp.a:
+	@mkdir -p $(dir $@)
+	grep -qxF 'add_compile_options(${COV_FULL_FLAGS})' jsoncpp/CMakeLists.txt || sed -i '1s/^/add_compile_options(${COV_FULL_FLAGS})\nlink_libraries(-fsanitize=address)\n/' jsoncpp/CMakeLists.txt
+	cd build/jsoncpp && cmake -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_BUILD_TYPE=debug -DBUILD_STATIC_LIBS=ON -DBUILD_OBJECT_LIBS=OFF -DJSONCPP_WITH_CMAKE_PACKAGE=OFF -DJSONCPP_WITH_TESTS=OFF -DCMAKE_CXX_COMPILER=clang++-14 ../../jsoncpp
+	cd build/jsoncpp && make -j$(nproc --all)
+
+build/jsoncpp.so: build/generic_target.o build/jsoncpp_adapter.o build/jsoncpp/lib/libjsoncpp.a
+	@mkdir -p $(dir $@)
+	$(CXX) $(CFLAGS) $(CFLAGS_SHARED_LIB) $(COV_FULL_FLAGS) -o $@ $^

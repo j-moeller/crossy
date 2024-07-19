@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "fuzzer_bridge"
+version = "0.1.0"
+description = ""
+authors = ["Jonas Möller <jo.moeller@tu-braunschweig.de>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+posix-ipc = "^1.0.5"
+numpy = "^1.23.4"
+
+[tool.poetry.dev-dependencies]
+black = "^22.8.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

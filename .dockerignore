@@ -1,0 +1,8 @@
+.git
+.vscode
+build
+configs
+corpus-final
+experiments
+output
+scripts

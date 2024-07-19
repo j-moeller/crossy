@@ -1,0 +1,12 @@
+[submodule "ext/llvm-project"]
+	path = ext/llvm-project
+	url = https://github.com/j-moeller/llvm-project.git
+	branch = crossy
+	shallow = true
+
+[submodule "src/java/paco-agent/jacoco"]
+	path = src/java/paco-agent/jacoco
+	url = https://github.com/j-moeller/jacoco.git
+	branch = crossy
+	shallow = true
+

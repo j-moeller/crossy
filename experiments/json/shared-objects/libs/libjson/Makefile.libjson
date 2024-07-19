@@ -1,0 +1,21 @@
+all: build/libjson.so
+
+build/print-buffer.o: print-buffer.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(CFLAGS_SHARED_O) -c -o $@ $^
+
+build/generic_target.o: generic_target.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CFLAGS) $(CFLAGS_SHARED_O) $(CXX_FLAGS) $(COV_FULL_FLAGS) -DHANDLE_EXCEPTIONS -c -o $@ $^
+
+build/libjson_adapter.o: libjson_adapter.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(CFLAGS_SHARED_O) $(COV_FULL_FLAGS) -c $< -o $@
+
+build/libjson.o: libjson/json.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS_LIBS) $(COV_FULL_FLAGS) -c $< -o $@
+
+build/libjson.so: build/generic_target.o build/libjson_adapter.o build/libjson.o build/print-buffer.o
+	@mkdir -p $(dir $@)
+	$(CXX) $(CFLAGS) $(CFLAGS_SHARED_LIB) $(COV_FULL_FLAGS) -o $@ $^

@@ -1,0 +1,18 @@
+all: build/json-c.so
+
+build/generic_target.o: generic_target.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CFLAGS) $(CFLAGS_SHARED_O) $(CXX_FLAGS) $(COV_FULL_FLAGS) -DHANDLE_EXCEPTIONS -c -o $@ $^
+
+build/json-c_adapter.o: json-c_adapter.c build/json-c/libjson-c.a
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(CFLAGS_SHARED_O) $(COV_FULL_FLAGS) -Ibuild/json-c -c $< -o $@
+
+build/json-c/libjson-c.a:
+	@mkdir -p $(dir $@)
+	cd build/json-c && cmake -DBUILD_TESTING=OFF -DCMAKE_C_COMPILER=clang-14 -DBUILD_STATIC_LIBS=ON ../../json-c
+	cd build/json-c && make -j$(nproc --all)
+
+build/json-c.so: build/generic_target.o build/json-c_adapter.o build/json-c/libjson-c.a
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(CFLAGS_SHARED_LIB) $(COV_FULL_FLAGS) -o $@ $^

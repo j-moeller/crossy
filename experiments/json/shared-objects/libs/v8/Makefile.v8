@@ -1,0 +1,3 @@
+all:
+	cd v8-project/v8 && gn gen out/v8-crossy --args='is_asan=true is_debug=false sanitizer_coverage_flags="inline-8bit-counters,pc-table" sanitizer_coverage_allowlist_flags="/app/v8-project/v8/paco/v8_allowlist.txt" target_cpu="x64" is_component_build=true v8_use_external_startup_data=false'
+	cd v8-project/v8 && ninja -C out/v8-crossy
