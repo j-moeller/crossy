@@ -9,7 +9,7 @@ build/crossy: .prepare
 	docker build -t crossy-main -f Dockerfile.crossy .
 	docker run --rm -it \
 		-v ${WORKDIR}/build/:/app/build \
-		crossy-main /bin/bash -c "make"
+		crossy-main /bin/bash -c "make -j \$$(nproc --all)"
 
 
 # Shared libraries
@@ -22,3 +22,8 @@ java_libs:
 
 run:
 	docker build -t crossy-run -f Dockerfile .
+	docker run --rm -it \
+		-v ${WORKDIR}/build/:/app/build:ro \
+		-v ${WORKDIR}/configs/:/app/configs:ro \
+		-v ${WORKDIR}/experiments/:/app/experiments:ro \
+		crossy-run

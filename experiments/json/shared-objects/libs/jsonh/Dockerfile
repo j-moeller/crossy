@@ -1,7 +1,7 @@
-FROM ubuntu:latest
+FROM debian:latest
 
 RUN apt-get update
-RUN apt-get install -y cmake make gcc clang-14 clang++-14 git
+RUN apt-get install -y cmake make gcc clang-14 clang++-14 git coreutils
 
 RUN ln -s /usr/bin/clang++-14 /usr/bin/clang++
 RUN ln -s /usr/bin/clang-14 /usr/bin/clang

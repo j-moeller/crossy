@@ -14,4 +14,4 @@ build/libjson/libjson.so:
 		--env CXX_17_FLAGS="${CXX_17_FLAGS}" \
 		--env LD_MAIN="${LD_MAIN}" \
 		-v ${WORKDIR}/build/libjson:/app/build \
-		crossy-libjson /bin/bash -c "make"
+		crossy-libjson /bin/bash -c "make -j \$$(nproc --all)"

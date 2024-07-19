@@ -5,4 +5,4 @@ target/java-adapter-1.0.jar:
 	docker run --rm -it \
 		-v ${WORKDIR}/target/:/app/target \
 		-v ${WORKDIR}/src/:/app/src:ro \
-		crossy-java-adapter /bin/bash -c "make"
+		crossy-java-adapter /bin/bash -c "make -j \$$(nproc --all)"

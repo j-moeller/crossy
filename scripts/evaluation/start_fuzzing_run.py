@@ -8,7 +8,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-IS_LOCAL = True  # os.getcwd().endswith("mlsec-crossy")
+IS_LOCAL = False
 
 
 def read_wordlist(filename):

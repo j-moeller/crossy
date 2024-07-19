@@ -7,8 +7,6 @@ RUNTIME_DIR := src/java/paco-agent/agent/src/main/java/com/paco/runtime
 
 JAVA_BUILD_DIR := build/java
 
-.PHONY: clean-java java
-
 # copy the paco-agent.jar to the root of JAVA_DIR
 build/java/paco-agent.jar: src/java/paco-agent/agent/target/agent-1.0-SNAPSHOT-jar-with-dependencies.jar build/java/libconnector.so
 	mkdir -p $(dir $@)
@@ -40,11 +38,3 @@ build/java/jvm_launcher: src/java/Launcher.cpp src/java/Launcher.h
 	$(CXX) $(JVM_LINK) -g -O2 $< -o $@
 
 java: build/java/jvm_launcher build/java/libconnector.so build/java/paco-agent.jar
-
-clean-java:
-	rm -f build/java/paco-agent.jar
-	rm -f build/java/libconnector.so
-	rm -f build/java/jvm_launcher
-	cd src/java/paco-agent && mvn clean
-	cd src/java/paco-agent/agent && mvn clean
-	cd src/java/paco-agent/jacoco && mvn clean

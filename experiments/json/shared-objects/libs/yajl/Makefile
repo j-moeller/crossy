@@ -14,4 +14,4 @@ build/yajl/yajl.so:
 		--env CXX_17_FLAGS="${CXX_17_FLAGS}" \
 		--env LD_MAIN="${LD_MAIN}" \
 		-v ${WORKDIR}/build/yajl:/app/build \
-		crossy-yajl /bin/bash -c "make"
+		crossy-yajl /bin/bash -c "make -j \$$(nproc --all)"

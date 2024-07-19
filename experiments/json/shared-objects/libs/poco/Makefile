@@ -14,4 +14,4 @@ build/poco/poco.so:
 		--env CXX_17_FLAGS="${CXX_17_FLAGS}" \
 		--env LD_MAIN="${LD_MAIN}" \
 		-v ${WORKDIR}/build/poco:/app/build \
-		crossy-poco /bin/bash -c "make"
+		crossy-poco /bin/bash -c "make -j \$$(nproc --all)"

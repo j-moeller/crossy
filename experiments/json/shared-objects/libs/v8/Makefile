@@ -14,4 +14,4 @@ build/v8/libv8-crossy.so:
 		--env CXX_17_FLAGS="${CXX_17_FLAGS}" \
 		--env LD_MAIN="${LD_MAIN}" \
 		-v ${WORKDIR}/build/v8:/app/v8-project/v8/out/v8-crossy \
-		crossy-v8 /bin/bash -c "make"
+		crossy-v8 /bin/bash -c "make -j \$$(nproc --all)"

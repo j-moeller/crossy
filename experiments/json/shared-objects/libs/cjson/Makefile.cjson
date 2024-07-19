@@ -12,6 +12,6 @@ build/cjson.o: cJSON/cJSON.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS_LIBS) $(COV_FULL_FLAGS) -c $< -o $@
 
-build/cjson.so: build/generic_target.o build/cjson_adapter.o
+build/cjson.so: build/generic_target.o build/cjson_adapter.o build/cjson.o
 	@mkdir -p $(dir $@)
 	$(CXX) $(CFLAGS) $(CFLAGS_SHARED_LIB) $(COV_FULL_FLAGS) -o $@ $^

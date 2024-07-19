@@ -14,4 +14,4 @@ build/boost/boost.so:
 		--env CXX_17_FLAGS="${CXX_17_FLAGS}" \
 		--env LD_MAIN="${LD_MAIN}" \
 		-v ${WORKDIR}/build/boost:/app/build \
-		crossy-boost /bin/bash -c "make"
+		crossy-boost /bin/bash -c "make -j \$$(nproc --all)"

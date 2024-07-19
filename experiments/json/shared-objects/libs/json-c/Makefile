@@ -14,4 +14,4 @@ build/json-c/json-c.so:
 		--env CXX_17_FLAGS="${CXX_17_FLAGS}" \
 		--env LD_MAIN="${LD_MAIN}" \
 		-v ${WORKDIR}/build/json-c:/app/build \
-		crossy-json-c /bin/bash -c "make"
+		crossy-json-c /bin/bash -c "make -j \$$(nproc --all)"

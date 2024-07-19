@@ -14,4 +14,4 @@ build/jsonh/jsonh.so:
 		--env CXX_17_FLAGS="${CXX_17_FLAGS}" \
 		--env LD_MAIN="${LD_MAIN}" \
 		-v ${WORKDIR}/build/jsonh:/app/build \
-		crossy-jsonh /bin/bash -c "make"
+		crossy-jsonh /bin/bash -c "make -j \$$(nproc --all)"

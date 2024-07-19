@@ -14,4 +14,4 @@ build/rapidjson/rapidjson.so:
 		--env CXX_17_FLAGS="${CXX_17_FLAGS}" \
 		--env LD_MAIN="${LD_MAIN}" \
 		-v ${WORKDIR}/build/rapidjson:/app/build \
-		crossy-rapidjson /bin/bash -c "make"
+		crossy-rapidjson /bin/bash -c "make -j \$$(nproc --all)"

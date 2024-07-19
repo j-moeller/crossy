@@ -14,4 +14,4 @@ build/spidermonkey/spidermonkey.so:
 		--env ENV_CXX_17_FLAGS="${CXX_17_FLAGS}" \
 		--env ENV_LD_MAIN="${LD_MAIN}" \
 		-v ${WORKDIR}/build/spidermonkey:/app/build \
-		crossy-spidermonkey /bin/bash -c "make"
+		crossy-spidermonkey /bin/bash -c "make -j \$$(nproc --all)"

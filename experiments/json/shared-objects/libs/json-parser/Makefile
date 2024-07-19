@@ -14,4 +14,4 @@ build/json-parser/json-parser.so:
 		--env CXX_17_FLAGS="${CXX_17_FLAGS}" \
 		--env LD_MAIN="${LD_MAIN}" \
 		-v ${WORKDIR}/build/json-parser:/app/build \
-		crossy-json-parser /bin/bash -c "make"
+		crossy-json-parser /bin/bash -c "make -j \$$(nproc --all)"

@@ -14,4 +14,4 @@ build/ccan/ccan.so:
 		--env CXX_17_FLAGS="${CXX_17_FLAGS}" \
 		--env LD_MAIN="${LD_MAIN}" \
 		-v ${WORKDIR}/build/ccan:/app/build \
-		crossy-ccan /bin/bash -c "make"
+		crossy-ccan /bin/bash -c "make -j \$$(nproc --all)"

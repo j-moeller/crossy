@@ -12,6 +12,6 @@ build/ccan.o: ccan/ccan/json/json.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS_LIBS) $(COV_FULL_FLAGS) -c $< -o $@
 
-build/ccan.so: build/generic_target.o build/ccan_adapter.o
+build/ccan.so: build/generic_target.o build/ccan_adapter.o build/ccan.o
 	@mkdir -p $(dir $@)
 	$(CXX) $(CFLAGS) $(CFLAGS_SHARED_LIB) $(COV_FULL_FLAGS) -o $@ $^

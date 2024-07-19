@@ -1,7 +1,7 @@
-FROM ubuntu:22.04
+FROM debian:latest
 
 RUN apt-get update
-RUN apt-get install -y cmake make gcc clang-14 clang++-14 git
+RUN apt-get install -y cmake make gcc clang-14 clang++-14 git coreutils
 
 RUN apt-get install -y curl
 

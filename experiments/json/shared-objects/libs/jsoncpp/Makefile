@@ -14,4 +14,4 @@ build/jsoncpp/jsoncpp.so:
 		--env CXX_17_FLAGS="${CXX_17_FLAGS}" \
 		--env LD_MAIN="${LD_MAIN}" \
 		-v ${WORKDIR}/build/jsoncpp:/app/build \
-		crossy-jsoncpp /bin/bash -c "make"
+		crossy-jsoncpp /bin/bash -c "make -j \$$(nproc --all)"
