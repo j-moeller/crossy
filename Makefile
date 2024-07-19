@@ -3,7 +3,7 @@ WORKDIR := $(shell pwd)
 all: build/crossy shared_libs java_libs
 
 .prepare:
-	git submodule update --init --recursive
+	git submodule update --init --recursive --depth 1
 
 build/crossy: .prepare
 	docker build -t crossy-main -f Dockerfile.crossy .
