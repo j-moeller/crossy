@@ -1,10 +1,8 @@
-JAVA_HOME := /usr/lib/jvm/java-17-openjdk-amd64
-JAVAC := $(JAVA_HOME)/bin/javac
+WORKDIR := $(shell pwd)
 
-.PHONY: clean
-
-target/java-adapter-1.0.jar: src/main/java/com/adapter/*.java src/test/java/com/adapter/*.java
-	mvn package
-
-clean: 
-	mvn clean
+target/java-adapter-1.0.jar:
+	docker build -t crossy-java-adapter -f Dockerfile .
+	docker run --rm -it \
+		-v ${WORKDIR}/target/:/app/target \
+		-v ${WORKDIR}/src/:/app/src:ro \
+		crossy-java-adapter /bin/bash -c "make"

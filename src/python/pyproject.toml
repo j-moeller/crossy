@@ -5,7 +5,7 @@ description = ""
 authors = ["Jonas Möller <jo.moeller@tu-braunschweig.de>"]
 
 [tool.poetry.dependencies]
-python = "~3.10"
+python = "^3.10"
 posix-ipc = "^1.0.5"
 numpy = "^1.23.4"
 

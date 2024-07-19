@@ -1,0 +1,24 @@
+CC := clang
+CXX := clang++
+
+all: build/crossy build/java/paco-agent.jar
+
+include src/java/Makefile
+include src/Makefile
+
+# Libfuzzer
+LIBFUZZER_CPP_FILES := $(shell find libfuzzer -maxdepth 1 -name '*.cpp')
+LIBFUZZER_OBJ_FILES := $(patsubst libfuzzer/%.cpp,build/libfuzzer/%.o,$(LIBFUZZER_CPP_FILES))
+
+build/libfuzzer/%.o: libfuzzer/%.cpp
+	mkdir -p $(dir $@)
+	$(CXX) -c -O2 -DDIFFERENTIAL_TESTING $< -o $@ 
+
+build/libfuzzer/libfuzzer.a: $(LIBFUZZER_OBJ_FILES)
+	ar rv $@ $^
+
+# Crossy
+build/crossy: build/libfuzzer/libfuzzer.a build/cli.o build/coverage.o build/input-reader.o build/main.o build/process.o build/runner.o build/targets.o build/util.o
+	mkdir -p $(dir $@)
+	make build/java/jvm_launcher
+	$(CXX) -g -O2 -pthread -fsanitize=address $^ $(JVM_LINK) -o $@

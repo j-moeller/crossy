@@ -2,9 +2,7 @@
 .vscode
 build
 configs
-corpus
+corpus-final
 experiments
-ext
 output
 scripts
-src

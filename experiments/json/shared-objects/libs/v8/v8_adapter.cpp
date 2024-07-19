@@ -30,7 +30,7 @@ static std::unique_ptr<v8::Isolate::Scope> isolate_scope;
 __attribute__((constructor)) extern "C" int init()
 {
     // TODO: Hardcoded path
-    char path[] = "./build/poc";
+    char path[] = "./build/crossy";
     size_t path_size = strlen(path);
 
     int argc = 1;

@@ -152,7 +152,7 @@ def main(
         json.dump(meta, f, indent=4)
 
     command_args = [
-        "./build/poc",
+        "./build/crossy",
         *configs,
         *[f"-g {g}" for g in gold_parsers],
         *([f"-gx {gold_type}"] if len(gold_parsers) > 0 else []),

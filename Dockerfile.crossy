@@ -1,0 +1,20 @@
+FROM debian:latest
+
+ENV IN_DOCKER_CONTAINER=1
+
+RUN apt-get update -y
+RUN apt-get install -y make clang-14 clang++-14 build-essential default-jdk maven
+
+# RUN apt-get install -y 
+# RUN apt-get install -y  libc++-14-dev libc++abi-14-dev build-essential git \
+# vim curl openjdk-17-jdk openjdk-17-jre maven
+
+RUN ln -s /usr/bin/clang++-14 /usr/bin/clang++
+RUN ln -s /usr/bin/clang-14 /usr/bin/clang
+
+WORKDIR /app
+
+COPY ext/llvm-project/compiler-rt/lib/fuzzer libfuzzer
+COPY src src
+
+COPY Makefile.crossy Makefile

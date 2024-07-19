@@ -72,7 +72,7 @@ def main(parsers=PARSERS, corpus=CORPUS, max_total_time=MAX_TOTAL_TIME, seed=SEE
         output_dir.mkdir(exist_ok=True, parents=True)
 
         command_args = [
-            "./build/poc",
+            "./build/crossy",
             parser,
             "-t",
             "output/timelog.txt",

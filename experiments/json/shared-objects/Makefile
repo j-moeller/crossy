@@ -48,7 +48,8 @@ all: \
 	build/spidermonkey/spidermonkey.so \
 	build/rapidjson/rapidjson.so \
 	build/v8/libv8-crossy.so \
-	build/yajl/yajl.so
+	build/yajl/yajl.so \
+	build/serde/serde.so
 
 include libs/boost/Makefile
 include libs/ccan/Makefile
@@ -67,3 +68,5 @@ include libs/spidermonkey/Makefile
 include libs/rapidjson/Makefile
 include libs/v8/Makefile
 include libs/yajl/Makefile
+
+include libs/serde/Makefile

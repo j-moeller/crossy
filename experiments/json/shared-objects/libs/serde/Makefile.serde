@@ -1,0 +1,19 @@
+all: build/serde.so
+
+# https://internals.rust-lang.org/t/improving-support-for-coverage-guided-fuzzing/15070
+RUSTFLAGS := -Zsanitizer=address -Cpasses=sancov-module -Cllvm-args=-sanitizer-coverage-inline-8bit-counters -Cllvm-args=-sanitizer-coverage-pc-table  -Cllvm-args=-sanitizer-coverage-level=4
+
+serde_adapter/target/debug/libadapter.a:
+	cd serde_adapter && RUSTFLAGS="$(RUSTFLAGS)" ~/.cargo/bin/cargo build
+
+build/generic_target.o: generic_target.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CFLAGS) $(CFLAGS_SHARED_O) $(CXX_FLAGS) $(COV_FULL_FLAGS) -DHANDLE_EXCEPTIONS -c -o $@ $^
+
+build/rust_target.o: rust_target.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CFLAGS) $(CFLAGS_SHARED_O) $(CXX_FLAGS) $(COV_FULL_FLAGS) -c -o $@ $^
+
+build/serde.so: build/generic_target.o build/rust_target.o serde_adapter/target/debug/libadapter.a
+	@mkdir -p $(dir $@)
+	$(CXX) $(CFLAGS) $(CFLAGS_SHARED_LIB) $(COV_FULL_FLAGS)  -o $@ $^

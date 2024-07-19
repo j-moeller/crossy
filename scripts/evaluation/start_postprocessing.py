@@ -82,7 +82,7 @@ def main(rundir, run_type):
         print(f"Processing {n_files} missing files")
 
         command = [
-            "./build/poc",
+            "./build/crossy",
             *configs,
             *[f"-g {g}" for g in gold_parsers],
             "-i /app/corpus/input_list.txt",

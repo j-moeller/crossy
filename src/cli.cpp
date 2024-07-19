@@ -13,7 +13,7 @@ CLIArguments parseArgs(int argc, char** argv)
      * registered in the runner.
      */
     if (argc < 2) {
-        std::cerr << "Usage: ./poc config ... [-i inputs_path] [-g command]\n";
+        std::cerr << "Usage: ./crossy config ... [-i inputs_path] [-g command]\n";
         exit(1);
     }
 

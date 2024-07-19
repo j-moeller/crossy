@@ -18,7 +18,7 @@ This initializes the git submodules, [fetches the default corpus](scripts/setup/
 make
 ```
 
-If you execute `make` on the host system, this will create a dev container where you can build the system in a predefined way. If you type `make` again (or `make build` or `make build/poc`) inside of the container it will build the main executable (`build/poc`).
+If you execute `make` on the host system, this will create a dev container where you can build the system in a predefined way. If you type `make` again (or `make build` or `make build/crossy`) inside of the container it will build the main executable (`build/crossy`).
 
 ### Evaluation
 
