@@ -1,58 +1,38 @@
+# Crossy
+
+This is the code repository accompanying our ACM AsiaCCS '24 paper ["Cross-Language Differential Testing of JSON Parsers"](https://dl.acm.org/doi/pdf/10.1145/3634737.3657003).
+
+_**Note:** We are still in the process of publishing this repository. Currently, the build process and preliminary fuzzing of C/C++/Rust/Java projects are possible. We unfortunately encountered some problems with Python projects, and the poco parser which we are going to fix in the following weeks._
+
 ## Setup
 
-Before running the setup, you need to ensure that v8 is setup correctly. This currently needs to be done **manually**, so please follow the description in [experiments/json/shared-objects/README.v8.md](experiments/json/shared-objects/README.v8.md).
+This repository consists of two collections of source code. The first is our crossy framework that is located in `src/`. The second are the JSON parsers located in `experiments/json`. By running
 
-After setting up v8, you can setup the rest of the dependencies with:
-
-```shell
-sh setup_host.sh
 ```
-
-This initializes the git submodules, [fetches the default corpus](scripts/setup/setup_corpus.sh), [builds the docker container from the Dockerfile](scripts/setup/setup_docker.sh) and [starts the initial container](scripts/setup/start_initial_container.sh). The initial container downloads Java dependencies, sets up the python environment and build v8 + spidermonkey.
-
-## Usage
-
-### Development
-
-```shell
 make
 ```
 
-If you execute `make` on the host system, this will create a dev container where you can build the system in a predefined way. If you type `make` again (or `make build` or `make build/crossy`) inside of the container it will build the main executable (`build/crossy`).
+you spawn a series of self-contained docker containers that build the respective projects (e.g., `Dockerfile.crossy` for Crossy and `experiments/json/shared-objects/libs/jsmn/Dockerfile.jsmn` for the jsmn parser).
 
-### Evaluation
+## Fuzzing
 
-#### Gold selection
+_**Note:** We are still in the process of publishing this repository. We are going to add our evaluation scripts once we adapted them for the published version. For now, please see `src/cli.cpp` for a list of available options for crossy._
 
-```shell
-./scripts/evaluation/start_gold_selection_run.sh
+
+Afterwards, you can run:
+
+```
+make run
 ```
 
-The script [scripts/evaluation/start_gold_selection_run.sh](./scripts/evaluation/start_gold_selection_run.sh) will create a 'run directory' in the 'output' directory. In the following, we will use \{rundir} to denote this directory.
+to spawn a docker container for running the fuzzer. In the docker container you can run:
 
-```shell
-python3 scripts/evaluation/start_postprocessing.py {rundir}
 ```
-
-```shell
-python3 scripts/analysis/find_optimal_gold_parser.py {rundir} > {csvfile}
+./build/crossy \
+    configs/json/* \
+    -o ./output/ \
+    -- \
+    corpus \
+    -detect_leaks=0 \
+    -artifact_prefix=./output/
 ```
-
-```shell
-python3 scripts/analysis/analyse_gold_parser.py {csvfile}
-```
-
-#### Fuzzing Run
-
-Define the GOLD_PARSER array in [scripts/evaluation/start_fuzzing_run.sh](scripts/evaluation/start_fuzzing_run.sh) according to the results of the gold selection. The gold parser array should be a representation for the entire set of all parsers ('common sense parser').
-
-```shell
-./scripts/evaluation/start_fuzzing_run.sh
-```
-
-This too will create a run directory in the 'output' directory. In the following, we will use \{rundir} to denote this directory.
-
-```shell
-python3 scripts/evaluation/start_postprocessing.py {rundir}
-```
-

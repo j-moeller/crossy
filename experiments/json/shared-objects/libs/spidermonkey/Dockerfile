@@ -1,7 +1,11 @@
-FROM debian:latest
+FROM debian:bookworm
 
 RUN apt-get update
 RUN apt-get install -y cmake make gcc clang-14 clang++-14 git coreutils
+
+# Firefox dependencies
+RUN apt-get install -y bash findutils gzip libxml2 m4 make perl tar unzip watchman
+RUN apt-get install -y wget ccache pkg-config zlib1g-dev
 
 RUN apt-get install -y curl
 
@@ -14,10 +18,6 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --defau
 # This is required for our rust libraries
 RUN $HOME/.cargo/bin/rustup install 1.70
 RUN $HOME/.cargo/bin/rustup default 1.70
-
-# Firefox dependencies
-RUN apt-get install -y bash findutils gzip libxml2 m4 make perl tar unzip watchman
-RUN apt-get install -y wget ccache pkg-config zlib1g-dev
 
 COPY libs/spidermonkey/Makefile.spidermonkey Makefile
 COPY libs/spidermonkey/spidermonkey_adapter.cpp .

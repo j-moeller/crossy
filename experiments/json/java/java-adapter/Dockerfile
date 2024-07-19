@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:bookworm
 
 ENV IN_DOCKER_CONTAINER=1
 
